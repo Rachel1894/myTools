@@ -1,0 +1,14 @@
+﻿在已安装Geforce显卡驱动的计算机上，通过conda安装cuda、cudnn和tensorflow-gpu，遇到的问题和解决方案。
+
+首先注意版本的适配：
+tensorflow-1.5.0版本只适用于目前最新的CUDA9。目前清华大学的conda源中，CUDA版本最新为8.0.3，tensorflow-gpu for win64最新版本是1.1.0，不能适配。
+显卡驱动版本和CUDA版本也要注意适配。
+
+conda install cudatoolkit cudnn
+pip install tensorflow-gpu==1.4
+
+此时尚无法使用tensorflow，因为tensorflow需要的cudart64_80.dll无法找到，需要在系统变量中添加其路径：envs\%ENVNAME%\DLLs
+在python脚本中添加以下语句：
+import os
+os.environ['path'] = '%ENV%\\DLLs;'+os.environ['path']
+即可（在python内使用此方法导入，仅在脚本运行期间有效）

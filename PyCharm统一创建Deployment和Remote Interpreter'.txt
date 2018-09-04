@@ -1,0 +1,2 @@
+先创建Deployment，然后创建interpreter时选择Deployment。
+注意创建Deployment时要去掉勾选"visible only in this project"

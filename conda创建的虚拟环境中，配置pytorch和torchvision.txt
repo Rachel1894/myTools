@@ -1,0 +1,21 @@
+﻿conda install pytorch torchvision安装的pytorch因为某种奇奇怪怪的编译原因，导致初始化.cuda()方法的时候耗时非常之久。解决的方法是在虚拟环境中手动地从源代码安装这两个软件。
+安装完成之前注意用conda拉取依赖的软件包，预先安装。
+
+按照github上的指导进行。
+
+export CMAKE_PREFIX_PATH="$(dirname $(which conda))/../" # [anaconda root directory] 路径要有bin
+
+# Install basic dependencies
+conda install numpy pyyaml mkl mkl-include setuptools cmake cffi typing
+conda install -c mingfeima mkldnn
+
+mkl-include在conda源中找不到（有可能是源或者conda版本太旧的问题），这时可以pip install mkl-devel安装
+
+# Add LAPACK support for the GPU
+conda install -c pytorch magma-cuda80 # or magma-cuda90 if CUDA 9
+
+软件包地址在guthub.com/pytorch可以下载到。
+
+具体方法：进入虚拟环境后，python setup.py install（两个都是）
+
+又有了
